@@ -1,0 +1,11 @@
+<h1>Forecast for <%= @forecast.address %></h1>
+
+<p>Current Temperature: <%= @forecast.temperature %>°F</p>
+<p>High Temperature: <%= @forecast.high_temperature %>°F</p>
+<p>Low Temperature: <%= @forecast.low_temperature %>°F</p>
+
+<% if @from_cache %>
+  <p>(This result was pulled from cache)</p>
+<% end %>
+
+<%= link_to "Back", new_forecast_path %>
