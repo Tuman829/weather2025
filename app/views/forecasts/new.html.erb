@@ -1,0 +1,15 @@
+<h1>Enter Address</h1>
+<h2>New Forecast</h2>
+<%= form_with model: @forecast, url: forecasts_path, local: true do |form| %>
+  <div>
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+  <div>
+    <%= form.submit "Get Forecast" %>
+  </div>
+<% end %>
+
+<% if flash[:error] %>
+  <p><%= flash[:error] %></p>
+<% end %>
