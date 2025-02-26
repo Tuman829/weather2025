@@ -10,6 +10,14 @@ RSpec.describe Forecast, type: :model do
   describe '.retrieve_forecast_data' do
     it 'retrieves forecast data for a given address' do
       address = '123 Main St'
+      service = instance_double(OpenWeatherService)
+      allow(OpenWeatherService).to receive(:new).and_return(service)
+      allow(service).to receive(:fetch_forecast).with(address).and_return(
+        temperature: 72,
+        high_temperature: 75,
+        low_temperature: 65
+      )
+
       forecast_data = Forecast.retrieve_forecast_data(address)
       expect(forecast_data).to include(:temperature, :high_temperature, :low_temperature)
     end
@@ -18,6 +26,14 @@ RSpec.describe Forecast, type: :model do
   describe '.fetch_forecast' do
     it 'caches the forecast data for 30 minutes' do
       address = '123 Main St'
+      service = instance_double(OpenWeatherService)
+      allow(OpenWeatherService).to receive(:new).and_return(service)
+      allow(service).to receive(:fetch_forecast).with(address).and_return(
+        temperature: 72,
+        high_temperature: 75,
+        low_temperature: 65
+      )
+
       forecast = Forecast.fetch_forecast(address)
       expect(Rails.cache.read("forecast/#{address}")).to eq(forecast)
     end

@@ -4,17 +4,15 @@ class Forecast < ApplicationRecord
   validates :address, presence: true
   validates :temperature, presence: true
 
-  def self.retrieve_forecast_data(_address)
-    {
-      temperature: 72,
-      high_temperature: 75,
-      low_temperature: 65
-    }
+  def self.retrieve_forecast_data(address)
+    service = OpenWeatherService.new
+    service.fetch_forecast(address)
   end
 
   def self.fetch_forecast(address)
     cache_key = "forecast/#{address}"
     cached_forecast = Rails.cache.read(cache_key)
+
     return cached_forecast if cached_forecast
 
     forecast_data = retrieve_forecast_data(address)

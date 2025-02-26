@@ -26,9 +26,9 @@ RSpec.describe ForecastsController, type: :controller do
       end
 
       it 'creates a new forecast and responds with success' do
-        expect {
+        expect do
           post :create, params: { forecast: { address: '123 Main St' } }
-        }.to change(Forecast, :count).by(1)
+        end.to change(Forecast, :count).by(1)
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Forecast for 123 Main St')
         expect(response.body).to include('72°F')
