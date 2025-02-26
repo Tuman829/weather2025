@@ -1,0 +1,24 @@
+
+[1mFrom:[0m /home/boris/projects/weather2025/app/models/forecast.rb:18 Forecast.fetch_forecast:
+
+    [1;34m13[0m: [32mdef[0m [1;36mself[0m.[1;34mfetch_forecast[0m(address)
+    [1;34m14[0m:   binding.pry
+    [1;34m15[0m:   cache_key = [31m[1;31m"[0m[31mforecast/#{address}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m16[0m:   cached_forecast = [1;34;4mRails[0m.cache.read(cache_key)
+    [1;34m17[0m:   binding.pry
+ => [1;34m18[0m:   [32mreturn[0m cached_forecast [32mif[0m cached_forecast
+    [1;34m19[0m: 
+    [1;34m20[0m:   forecast_data = retrieve_forecast_data(address)
+    [1;34m21[0m:   [32mreturn[0m [1;36mnil[0m [32munless[0m forecast_data
+    [1;34m22[0m: 
+    [1;34m23[0m:   forecast = create(
+    [1;34m24[0m:     [35maddress[0m: address,
+    [1;34m25[0m:     [35mtemperature[0m: forecast_data[[33m:temperature[0m],
+    [1;34m26[0m:     [35mhigh_temperature[0m: forecast_data[[33m:high_temperature[0m],
+    [1;34m27[0m:     [35mlow_temperature[0m: forecast_data[[33m:low_temperature[0m],
+    [1;34m28[0m:     [35mcached_at[0m: [1;34;4mTime[0m.current
+    [1;34m29[0m:   )
+    [1;34m30[0m:   [1;34;4mRails[0m.cache.write(cache_key, forecast, [35mexpires_in[0m: [1;34m30[0m.minutes)
+    [1;34m31[0m:   forecast
+    [1;34m32[0m: [32mend[0m
+
